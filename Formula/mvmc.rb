@@ -4,15 +4,16 @@ class Mvmc < Formula
   url "https://github.com/issp-center-dev/mVMC/releases/download/v1.0.0/mVMC-1.0.0.tar.gz"
   sha256 "f9a8098733d12a6e35fd5d1f308cb3d0e0946aa688487d63d93516e166794dc8"
 
+  option "with-icc", "Build by Intel compiler"
+  option "with-scalapack", "Build with ScaLAPACK support"
+
+  needs :openmp
+
   depends_on "cmake" => :build
   depends_on :mpi
   depends_on :fortran
 
-  needs :openmp
-
-  option "with-icc", "Build by Intel compiler"
-  option "with-scalapack", "Build with ScaLAPACK support"
-  depends_on "scalapack" => :optional
+  depends_on "homebrew/science/scalapack" => :optional
 
   def install
     args = std_cmake_args
@@ -40,5 +41,4 @@ class Mvmc < Formula
   test do
     system "true"
   end
-
 end
