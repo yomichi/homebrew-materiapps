@@ -4,7 +4,6 @@ class Mvmc < Formula
   url "https://github.com/issp-center-dev/mVMC/releases/download/v1.0.0/mVMC-1.0.0.tar.gz"
   sha256 "f9a8098733d12a6e35fd5d1f308cb3d0e0946aa688487d63d93516e166794dc8"
 
-  option "with-icc", "Build by Intel compiler"
   option "with-scalapack", "Build with ScaLAPACK support"
 
   needs :openmp
@@ -19,15 +18,10 @@ class Mvmc < Formula
     args = std_cmake_args
     args.delete "-DCMAKE_BUILD_TYPE=None"
     args << "-DCMAKE_BUILD_TYPE=Release"
+    args << "-DCONFIG=gcc"
     if build.with? "scalapack"
       args << "-DUSE_SCALAPACK=ON"
       args << "-DSCALAPACK_LIBRARIES=-lscalapack"
-    end
-
-    if build.with? "icc"
-      args << "-DCONFIG=intel"
-    else
-      args << "-DCONFIG=gcc"
     end
 
     system "cmake", ".", *args
