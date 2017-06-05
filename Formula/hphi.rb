@@ -8,19 +8,29 @@ class Hphi < Formula
   depends_on :mpi
   depends_on :fortran
 
+  needs :openmp
+
   def install
-    system "cmake", "-DCONFIG=gcc", "."
+    args = std_cmake_args
+    args << "-DCONFIG=gcc"
+    system "cmake", ".", *args
     system "make"
     bin.install "src/HPhi", "tool/corplot" => "corplot_hphi", "tool/fourier" => "fourier_hphi"
     doc.install "doc/jp/userguide_jp.pdf", "doc/en/userguide_en.pdf"
+    lib.install "src/komega/libkomega.dylib"
     pkgshare.install "samples"
   end
 
   test do
-    system "false"
-  end
-
-  fails_with :clang do
-    cause "HPhi does not support clang compiler."
+    (testpath/"stdface.def").write <<-EOF.undent
+      model="spin"
+      method="lanczos"
+      lattice="chain"
+      2S=1
+      2Sz=0
+      L=16
+      J=1
+    EOF
+    system "hphi", "-s", "stdface.def"
   end
 end

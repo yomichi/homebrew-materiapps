@@ -33,6 +33,17 @@ class Mvmc < Formula
   end
 
   test do
-    system "true"
+    (testpath/"stdface.def").write <<-EOF.undent
+      model="hubbard"
+      lattice="chain"
+      2Sz=0
+      L=4
+      nelec=4
+      t=1
+      U=4
+      NSROptItrStep=100
+      NStore=1
+    EOF
+    system "vmc.out", "-s", "stdface.def"
   end
 end
