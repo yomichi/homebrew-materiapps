@@ -11,9 +11,10 @@ class Mvmc < Formula
   def install
     system "cmake", "-DCONFIG=gcc", "."
     system "make"
-    bin.install "src/mVMC/vmc.out", "src/mVMC/vmcdry.out", "src/ComplexUHF/UHF", "tool/fourier", "tool/corplot"
+    bin.install "src/mVMC/vmc.out", "src/mVMC/vmcdry.out", "src/ComplexUHF/UHF"
+    bin.install "tool/fourier" => "fourier_mvmc", "tool/corplot" => "corplot_mvmc"
     doc.install "doc/jp/userguide_jp.pdf", "doc/en/userguide_en.pdf"
-    share.install "sample"
+    pkgshare.install "sample"
   end
 
   test do
