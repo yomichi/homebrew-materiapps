@@ -8,8 +8,28 @@ class Mvmc < Formula
   depends_on :mpi
   depends_on :fortran
 
+  needs :openmp
+
+  option "with-icc", "Build by Intel compiler"
+  option "with-scalapack", "Build with ScaLAPACK support"
+  depends_on "scalapack" => :optional
+
   def install
-    system "cmake", "-DCONFIG=gcc", "."
+    args = std_cmake_args
+    args.delete "-DCMAKE_BUILD_TYPE=None"
+    args << "-DCMAKE_BUILD_TYPE=Release"
+    if build.with? "scalapack"
+      args << "-DUSE_SCALAPACK=ON"
+      args << "-DSCALAPACK_LIBRARIES=-lscalapack"
+    end
+
+    if build.with? "icc"
+      args << "-DCONFIG=intel"
+    else
+      args << "-DCONFIG=gcc"
+    end
+
+    system "cmake", ".", *args
     system "make"
     bin.install "src/mVMC/vmc.out", "src/mVMC/vmcdry.out", "src/ComplexUHF/UHF"
     bin.install "tool/fourier" => "fourier_mvmc", "tool/corplot" => "corplot_mvmc"
@@ -21,7 +41,4 @@ class Mvmc < Formula
     system "true"
   end
 
-  fails_with :clang do
-    cause "mVMC does not support clang compiler."
-  end
 end
