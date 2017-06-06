@@ -1,5 +1,5 @@
 # homebrew-materiapps
-****Unofficial* formulae for computational materials science applications
+_Unofficial_ formulae for computational materials science applications
 
 ## usage
 
