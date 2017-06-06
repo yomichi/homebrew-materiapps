@@ -1,11 +1,17 @@
 # homebrew-materiapps
-Unofficial formulae for computational materials science applications
+****Unofficial* formulae for computational materials science applications
 
-# applications
+## usage
+
+``` sh
+$ brew tap yomichi/materiapps
+$ brew info <name>
+$ brew install <name>
+```
+
+## availables
 - HPhi
 - mVMC
+- OpenMX
 - feram
 
-# materials science applications served from other repositories
-- alpscore
-    - [homebrew/science/alpscore](https://github.com/Homebrew/homebrew-science/blob/master/alpscore.rb)
