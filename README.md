@@ -8,4 +8,4 @@ Unofficial formulae for computational materials science applications
 
 # materials science applications served from other repositories
 - alpscore
-    - [homebrew/science/alpscore](https://github.com/Homebrew/homebrew-science/blob/master/homebrew-science)
+    - [homebrew/science/alpscore](https://github.com/Homebrew/homebrew-science/blob/master/alpscore.rb)
